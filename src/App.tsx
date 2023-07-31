@@ -1,9 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css"
+import { Container } from "react-bootstrap"
 import { Route, Routes, Navigate } from "react-router-dom"
 
 function App() {
 
-  return <Routes>
+  return (
+  <Container className="my-4">
+  <Routes>
     <Route path='/' element={<h1>Home</h1>} />
     <Route path='/new' element={<h1>New</h1>} />
     <Route path='/:id'>
@@ -12,6 +15,8 @@ function App() {
     </Route>
     <Route path='*' element={<Navigate to='/' />} />
   </Routes>
+  </Container>
+  )
 }
 
 export default App
