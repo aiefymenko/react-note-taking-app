@@ -1,4 +1,5 @@
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import CreatableReactSelect from 'react-select/creatable'
 
 export function NoteForm() {
@@ -24,7 +25,9 @@ export function NoteForm() {
         </Form.Group>
         <Stack direction="horizontal" gap={2} className="justify-content-end">
           <Button type="submit" variant="primary">Submit</Button>
+          <Link to='..'>
           <Button type="button" variant="outline-secondary">Cancel</Button>
+          </Link>
         </Stack>
     </Stack>
   </Form>
