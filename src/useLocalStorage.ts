@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+//check if the value exist
 export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
   const [value, setValue] = useState<T>(() => {
     const jsonValue = localStorage.getItem(key)
 
     if (jsonValue == null) {
       if (typeof initialValue === 'function') {
-        return (initialValue as () => T);
+        return (initialValue as () => T)();
       } else {
         return initialValue;
       }
@@ -14,4 +15,11 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
       return JSON.parse(jsonValue);
     }
   })
+
+  //if exist update the local storage
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value))
+  }, [value, key])
+
+  return [value, setValue] as [T, typeof setValue];
 }
