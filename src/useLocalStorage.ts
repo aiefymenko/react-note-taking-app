@@ -12,7 +12,7 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
         return initialValue;
       }
     } else {
-      return JSON.parse(jsonValue);
+      return JSON.parse(jsonValue) as T;
     }
   })
 
