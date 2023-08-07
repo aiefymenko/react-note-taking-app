@@ -40,6 +40,12 @@ function App() {
     })
   }, [notes, tags])
 
+  function onCreateNote({tags, ...data}: NoteData) {
+    setNotes(prevNotes => {
+      return [...prevNotes, {...data, id: uuidV4()}]
+    })
+  }
+
   return (
   <Container className="my-4">
   <Routes>
