@@ -16,6 +16,12 @@ type NoteListProps = {
   notes: SimplifiedNote[]
 }
 
+type EditTagsModalProps = {
+  show: boolean,
+  availableTags: Tag[],
+  handleClose: () => void
+}
+
 export function NoteList({availableTags, notes}: NoteListProps ) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([])
   const [title, setTitle] = useState("")
