@@ -42,7 +42,7 @@ export function NoteList({availableTags, notes}: NoteListProps ) {
         <Link to='/new'>
           <Button variant="primary">Create</Button>
         </Link>
-        <Button variant="outline-secondary">Edit Tags</Button>
+        <Button onClick={() => setEditTagsModalIsOpen(true)} variant="outline-secondary">Edit Tags</Button>
       </Stack>
     </Col>
   </Row>
@@ -79,7 +79,7 @@ export function NoteList({availableTags, notes}: NoteListProps ) {
       </Col>
     ))}
   </Row>
-  <EditTagsModal show={show} handleClose={} availableTags={availableTags} />
+  <EditTagsModal show={editTagsModalIsOpen} handleClose={() => setEditTagsModalIsOpen(false)} availableTags={availableTags} />
   </>
 }
 
@@ -108,9 +108,10 @@ function EditTagsModal({availableTags, show, handleClose}:EditTagsModalProps) {
   return <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>
       <Modal.Title>Edit Tags</Modal.Title>
+      </Modal.Header>
       <Modal.Body>
         <Form>
-          <Stack gap={4}>
+          <Stack gap={2}>
             {availableTags.map(tag => (
               <Row key={tag.id}>
                 <Col>
@@ -124,6 +125,5 @@ function EditTagsModal({availableTags, show, handleClose}:EditTagsModalProps) {
           </Stack>
         </Form>
       </Modal.Body>
-    </Modal.Header>
   </Modal>
 }
