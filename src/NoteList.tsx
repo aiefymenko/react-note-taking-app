@@ -14,15 +14,19 @@ type SimplifiedNote = {
 type NoteListProps = {
   availableTags: Tag[],
   notes: SimplifiedNote[]
+  onDeleteTag: (id: string) => void,
+  onUpdateTag: (id: string, label: string) => void
 }
 
 type EditTagsModalProps = {
   show: boolean,
   availableTags: Tag[],
-  handleClose: () => void
+  handleClose: () => void,
+  onDeleteTag: (id: string) => void,
+  onUpdateTag: (id: string, label: string) => void
 }
 
-export function NoteList({availableTags, notes}: NoteListProps ) {
+export function NoteList({availableTags, notes, onDeleteTag, onUpdateTag}: NoteListProps ) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([])
   const [title, setTitle] = useState("")
   const [editTagsModalIsOpen, setEditTagsModalIsOpen] = useState(false);
@@ -79,7 +83,11 @@ export function NoteList({availableTags, notes}: NoteListProps ) {
       </Col>
     ))}
   </Row>
-  <EditTagsModal show={editTagsModalIsOpen} handleClose={() => setEditTagsModalIsOpen(false)} availableTags={availableTags} />
+  <EditTagsModal show={editTagsModalIsOpen}
+   handleClose={() => setEditTagsModalIsOpen(false)}
+   availableTags={availableTags}
+   onUpdateTag={onUpdateTag}
+   onDeleteTag={onDeleteTag} />
   </>
 }
 
@@ -104,7 +112,7 @@ function NoteCard({id, title, tags}: SimplifiedNote) {
   )
 }
 
-function EditTagsModal({availableTags, show, handleClose}:EditTagsModalProps) {
+function EditTagsModal({availableTags, show, handleClose, onUpdateTag, onDeleteTag}:EditTagsModalProps) {
   return <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>
       <Modal.Title>Edit Tags</Modal.Title>
@@ -115,9 +123,9 @@ function EditTagsModal({availableTags, show, handleClose}:EditTagsModalProps) {
             {availableTags.map(tag => (
               <Row key={tag.id}>
                 <Col>
-                <Form.Control type="text" value={tag.label} /></Col>
+                <Form.Control type="text" value={tag.label} onChange={e => onUpdateTag(tag.id, e.target.value)} /></Col>
                 <Col xs="auto">
-                  <Button variant="outline-danger">&times;</Button>
+                  <Button variant="outline-danger" onClick={() => onDeleteTag(tag.id)}>&times;</Button>
                 </Col>
               </Row>
 
