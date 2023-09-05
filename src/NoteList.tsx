@@ -25,7 +25,7 @@ type EditTagsModalProps = {
 export function NoteList({availableTags, notes}: NoteListProps ) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([])
   const [title, setTitle] = useState("")
-  console.log(title);
+  const [editTagsModalIsOpen, setEditTagsModalIsOpen] = useState(false);
 
   const filteredNotes = useMemo(() => {
     return notes.filter(note => {
@@ -79,7 +79,7 @@ export function NoteList({availableTags, notes}: NoteListProps ) {
       </Col>
     ))}
   </Row>
-  <EditTagsModal />
+  <EditTagsModal show={show} handleClose={} availableTags={availableTags} />
   </>
 }
 
